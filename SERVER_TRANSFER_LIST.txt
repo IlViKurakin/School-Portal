@@ -1,0 +1,23 @@
+НА СЕРВЕР ПЕРЕДАТЬ
+==================
+
+1. Все рабочие *.py портала
+2. portal.db
+3. uploads\
+4. generated_documents\
+5. templates\
+6. logo.jpg
+7. export_template.xlsx
+8. requirements.txt
+9. requirements_server_additions.txt
+10. SERVER_DEPLOY_README.txt
+11. server_start.bat
+
+НЕ ПЕРЕДАВАТЬ НА СЕРВЕР
+=======================
+
+Доступы_портал_прикрепления.xlsx
+Роли для портала.xlsx
+старые тестовые выгрузки
+локальное виртуальное окружение venv312
+кэш __pycache__
