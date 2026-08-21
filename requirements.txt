@@ -9,10 +9,10 @@ requests>=2.32,<3.0
 python-docx>=1.1,<2.0
 gunicorn>=21.0,<22.0
 
-# PaddleOCR (фиксированные версии)
+# PaddleOCR - совместимые версии для Python 3.12
 setuptools>=65.0.0
 wheel>=0.40.0
-paddleocr==2.7.3
-paddlepaddle==2.6.1
-numpy==1.26.4
-opencv-python-headless==4.9.0.80
+paddlepaddle>=2.6.2
+paddleocr>=2.8.0
+numpy>=1.26.0,<2.0.0
+opencv-python-headless>=4.9.0.80
