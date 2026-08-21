@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y \
     libxext6 \
     libxrender-dev \
     libgomp1 \
-    libglib2.0-0 \
     libatlas-base-dev \
     libopenblas-dev \
     liblapack-dev \
@@ -20,7 +19,8 @@ WORKDIR /app
 
 # Устанавливаем зависимости Python
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 # Копируем код
 COPY . .
@@ -31,6 +31,11 @@ ENV PYTHONUNBUFFERED=1
 ENV IN_CLOUD=true
 ENV OCR_ENABLED=true
 ENV USE_PADDLE_IN_CLOUD=true
+ENV PADDLE_FLAGS=use_mkldnn=0,enable_analysis=0
+ENV CUDA_VISIBLE_DEVICES=-1
+ENV OMP_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
 
 EXPOSE 5000
 
