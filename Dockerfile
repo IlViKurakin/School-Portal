@@ -1,6 +1,6 @@
 FROM python:3.11-slim
 
-# Устанавливаем системные зависимости для PaddleOCR
+# Устанавливаем все системные зависимости для PaddleOCR
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx \
     libglib2.0-0 \
@@ -18,23 +18,21 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# Копируем зависимости и устанавливаем их
+# Устанавливаем зависимости Python
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Копируем код приложения
+# Копируем код
 COPY . .
 
-# Создаем директории для загрузок
 RUN mkdir -p uploads generated_documents
 
-# Устанавливаем переменные окружения
 ENV PYTHONUNBUFFERED=1
 ENV IN_CLOUD=true
 ENV OCR_ENABLED=true
+ENV USE_PADDLE_IN_CLOUD=true
 
-# Открываем порт
 EXPOSE 5000
 
-# Запускаем приложение
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--threads", "2", "main:app"]
+# Увеличиваем время загрузки для PaddleOCR
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--threads", "2", "--timeout", "300", "main:app"]
